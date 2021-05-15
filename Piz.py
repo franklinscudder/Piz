@@ -1,5 +1,6 @@
 
 import os, sys, string, random
+from datetime import datetime
 
 def convert(string):
     return "".join([hex(c) for c in string])
@@ -22,8 +23,10 @@ def populate(basePath, data, depth, width, fpl, index):
             
     if depth != 1:
         for w in range(width):
-            populate(basePath + "/" + thisLevelName, data, depth - 1, width, fpl, index)
-
+            if populate(basePath + "/" + thisLevelName, data, depth - 1, width, fpl, index):
+                return True
+    
+    return False
 
 def main():
     filename = sys.argv[1]
@@ -50,14 +53,16 @@ def main():
     
     n = (depth * width * fpl) + 1
     parts = [data[i:i+n] for i in range(0, len(data), n)]
-    print(parts)
     
     os.mkdir(outname+"_piz")
     
     index = 0
     populate("./" + outname + "_piz", parts, depth, width, fpl, index)
+    
+    with open(outname+"_piz"+"/pizinfo.pizinfo", "w") as f:
+        f.write(f"Piz Info for: {filename} \nPizzed at {datetime.now()}")
         
-        
+    
         
     
     
