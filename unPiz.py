@@ -33,7 +33,7 @@ def sortFiles(files):
 def main():
     target = sys.argv[1]
     
-    with open(target + "/pizinfo.pizinfo", "r") as f:
+    with open(target + "/info.pizinfo", "r") as f:
         info = f.readlines()
         
     outname = info[0].split(":")[1][1:-2]
@@ -55,6 +55,10 @@ def main():
     print(data)
     rawData = bytes(data)
     print(rawData)
+    
+    with open("unPizzed_" + outname, "wb") as fout:
+        fout.write(rawData)
+
 
 if __name__ == "__main__":
     main()
