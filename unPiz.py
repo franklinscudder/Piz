@@ -27,9 +27,6 @@ def sortFiles(files):
         
     return out
     
-    
-    
-
 def main():
     target = sys.argv[1]
     
@@ -38,11 +35,11 @@ def main():
         
     outname = info[0].split(":")[1][1:-2]
     
-    print(outname)
+    #print(outname)
     files = getListOfFiles(target)
-    print(files)
+    #print(files)
     files = sortFiles(files)
-    print(files)
+    #print(files)
     
     data = ""
     
@@ -50,14 +47,18 @@ def main():
         with open(file, "r") as f:
             data += f.read()
     
-    print(data)
+    #print(data)
     data = [int(i,16) for i in data.split("0x")[1:]]
-    print(data)
+    #print(data)
     rawData = bytes(data)
-    print(rawData)
+    #print(rawData)
+    
+    size = len(rawData)
     
     with open("unPizzed_" + outname, "wb") as fout:
         fout.write(rawData)
+        
+    print(f"Wrote {size} bytes to {'unPizzed_' + outname}")
 
 
 if __name__ == "__main__":

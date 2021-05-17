@@ -1,5 +1,5 @@
 
-import os, sys, string, random
+import os, sys, string, random, textwrap
 from datetime import datetime
 
 def convert(string):
@@ -13,15 +13,12 @@ def populate(basePath, data, depth, width, fpl):
     thisLevelName = randname()
     os.mkdir(basePath + "/" + thisLevelName)
     
-    print(data)
-    
     for fn in range(fpl):
         if len(data) == 0:
             return True
             
         with open(basePath + "/" + thisLevelName + "/" + f"{index}_{randname()}"+".piz","w") as f:
             d = data.pop(0)
-            print(d)
             f.write(d)
             index += 1
             
@@ -59,18 +56,20 @@ def main():
         data = convert(file.read())
     
     n = (depth * width * fpl) + 1
-    parts = [data[i:i+n] for i in range(0, len(data), n)]
+    parts = textwrap.wrap(data, n)
     
     os.mkdir(outname+"_piz")
     
     global index
     index = 0
+    dataSize = len(data.replace("0x",""))*0.5
+    outDataSize = len(data)
     populate("./" + outname + "_piz", parts, depth, width, fpl)
     
     with open(outname+"_piz"+"/info.pizinfo", "w") as f:
-        f.write(f"Piz Info for: {filename} \nPizzed at {datetime.now()}")
+        f.write(f"Piz Info for: {filename} \nPizzed at {datetime.now()}\nInitial size: {dataSize}B \nOutput size: {outDataSize}B")
         
-    
+    print(f"Expanded {int(dataSize)} bytes to {int(outDataSize)} bytes in {outname}_piz")
         
     
     
