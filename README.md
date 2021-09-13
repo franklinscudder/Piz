@@ -3,4 +3,4 @@
  
  This is a useless tool that turns a file into a directory structure full of other files and then attempts to decode this mess back into the original file.
  
- If zipping up a directory is compression I guess this is expansion??? Obfuscation??? Inflation????
+ If zipping up a directory is compression I guess this is expansion??? Obfuscation??? Over-Inflation????
